@@ -57,15 +57,40 @@ export default defineConfig({
 			],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/ycra-dev/knowledge' }],
 			sidebar: [
+				// 홈
+				{ label: '홈', slug: 'index' },
+				// 수학
 				{
-					label: 'Guides',
+					label: '수학',
+					collapsed: false,
 					items: [
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: '선형대수', autogenerate: { directory: 'math/linear-algebra' } },
+						{ label: '미적분학', autogenerate: { directory: 'math/calculus' } },
+						{ label: '확률과 통계', autogenerate: { directory: 'math/probability' } },
+						{ label: '이산수학', autogenerate: { directory: 'math/discrete-math' } },
 					],
 				},
+				// 물리학
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: '물리학',
+					collapsed: true,
+					items: [
+						{ label: '고전역학', autogenerate: { directory: 'physics/classical-mechanics' } },
+						{ label: '전자기학', autogenerate: { directory: 'physics/electromagnetism' } },
+						{ label: '양자역학', autogenerate: { directory: 'physics/quantum-mechanics' } },
+						{ label: '열역학', autogenerate: { directory: 'physics/thermodynamics' } },
+					],
+				},
+				// 컴퓨터공학
+				{
+					label: '컴퓨터공학',
+					collapsed: true,
+					items: [
+						{ label: '알고리즘', autogenerate: { directory: 'cs/algorithms' } },
+						{ label: '자료구조', autogenerate: { directory: 'cs/data-structures' } },
+						{ label: '머신러닝', autogenerate: { directory: 'cs/machine-learning' } },
+						{ label: '시스템', autogenerate: { directory: 'cs/systems' } },
+					],
 				},
 			],
 		}),
