@@ -2,6 +2,8 @@
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // 사이트 메타데이터
 const SITE_URL = 'https://ycra-dev.github.io';
@@ -15,10 +17,24 @@ export default defineConfig({
 	site: SITE_URL,
 	base: BASE_PATH,
 
+	// 수식 렌더링 (remark-math + rehype-katex)
+	markdown: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [rehypeKatex],
+	},
+
 	integrations: [
 		starlight({
 			title: SITE_TITLE,
 			description: SITE_DESCRIPTION,
+			// 코드 하이라이팅 테마 (Shiki)
+			// 라이트: github-light - 깔끔하고 가독성 좋음
+			// 다크: github-dark - 대비가 적절하고 장시간 코드 읽기에 적합
+			expressiveCode: {
+				themes: ['github-light', 'github-dark'],
+			},
+			// KaTeX CSS (수식 렌더링) - node_modules에서 직접 로드
+			customCss: ['./node_modules/katex/dist/katex.min.css'],
 			// 기본 언어를 한국어로 설정 (HTML lang="ko")
 			defaultLocale: 'root',
 			locales: {
@@ -97,6 +113,12 @@ export default defineConfig({
 					label: '기여하기',
 					collapsed: true,
 					autogenerate: { directory: 'contributing' },
+				},
+				// 테스트 페이지
+				{
+					label: '테스트',
+					collapsed: true,
+					autogenerate: { directory: 'tests' },
 				},
 			],
 		}),
