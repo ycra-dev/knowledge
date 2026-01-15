@@ -92,6 +92,12 @@ export default defineConfig({
 						{ label: '시스템', autogenerate: { directory: 'cs/systems' } },
 					],
 				},
+				// 기여 가이드
+				{
+					label: '기여하기',
+					collapsed: true,
+					autogenerate: { directory: 'contributing' },
+				},
 			],
 		}),
 		// sitemap 자동 생성
