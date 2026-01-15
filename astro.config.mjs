@@ -1,9 +1,13 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
+	// GitHub Pages 배포 설정
+	site: 'https://ycra-dev.github.io',
+	base: '/knowledge',
+
 	integrations: [
 		starlight({
 			title: 'My Docs',
