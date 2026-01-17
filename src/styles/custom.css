@@ -1,0 +1,108 @@
+/*
+ * 본문 계층 구조 시각화
+ * h2, h3, h4 등의 헤딩과 그 하위 콘텐츠에 들여쓰기를 적용하여
+ * 목차처럼 계층 관계를 명확히 표현
+ */
+
+@layer starlight.custom {
+	/* 들여쓰기 단위 */
+	:root {
+		--sl-content-indent: 1.25rem;
+	}
+
+	/* ========================================
+	 * 헤딩별 들여쓰기
+	 * h2 = 0, h3 = 1단계, h4 = 2단계
+	 * ======================================== */
+
+	/* h2: 기본 위치 (들여쓰기 없음), 왼쪽 강조선 */
+	.sl-markdown-content h2:not(:where(.not-content *)) {
+		padding-left: 0;
+		border-left: 3px solid var(--sl-color-accent);
+		padding-inline-start: 0.75rem;
+		margin-left: 0;
+	}
+
+	/* h3: 1단계 들여쓰기 */
+	.sl-markdown-content h3:not(:where(.not-content *)) {
+		margin-left: var(--sl-content-indent);
+		padding-left: 0;
+		border-left: 2px solid var(--sl-color-gray-5);
+		padding-inline-start: 0.5rem;
+	}
+
+	/* h4: 2단계 들여쓰기 */
+	.sl-markdown-content h4:not(:where(.not-content *)) {
+		margin-left: calc(var(--sl-content-indent) * 2);
+		padding-left: 0;
+		border-left: 2px solid var(--sl-color-gray-6);
+		padding-inline-start: 0.5rem;
+	}
+
+	/* h5: 3단계 들여쓰기 */
+	.sl-markdown-content h5:not(:where(.not-content *)) {
+		margin-left: calc(var(--sl-content-indent) * 3);
+	}
+
+	/* h6: 4단계 들여쓰기 */
+	.sl-markdown-content h6:not(:where(.not-content *)) {
+		margin-left: calc(var(--sl-content-indent) * 4);
+	}
+
+	/* ========================================
+	 * 헤딩 뒤에 오는 콘텐츠 블록 들여쓰기
+	 * CSS :has()를 사용하여 이전 헤딩 레벨에 따라 들여쓰기
+	 * ======================================== */
+
+	/* h2 ~ 요소들 (다음 h2 전까지): 1단계 들여쓰기 */
+	.sl-markdown-content
+		> h2
+		~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(
+			:where(.not-content *)
+		) {
+		margin-left: var(--sl-content-indent);
+	}
+
+	/* h3 ~ 요소들 (다음 h2, h3 전까지): 2단계 들여쓰기 */
+	.sl-markdown-content
+		> h3
+		~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(
+			:where(.not-content *)
+		) {
+		margin-left: calc(var(--sl-content-indent) * 2);
+	}
+
+	/* h4 ~ 요소들: 3단계 들여쓰기 */
+	.sl-markdown-content
+		> h4
+		~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(
+			:where(.not-content *)
+		) {
+		margin-left: calc(var(--sl-content-indent) * 3);
+	}
+
+	/* ========================================
+	 * 헤딩이 나오면 들여쓰기 리셋
+	 * h2가 나오면 다시 1단계부터, h3가 나오면 2단계로
+	 * ======================================== */
+
+	/* h2 다음에 h2가 오면: 새 섹션 시작 */
+	.sl-markdown-content > h2 ~ h2 ~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(:where(.not-content *)) {
+		margin-left: var(--sl-content-indent);
+	}
+
+	/* h3 다음에 h2가 오면: h2 섹션의 콘텐츠는 1단계 */
+	.sl-markdown-content > h3 ~ h2 ~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(:where(.not-content *)) {
+		margin-left: var(--sl-content-indent);
+	}
+
+	/* h4 다음에 h2가 오면: h2 섹션의 콘텐츠는 1단계 */
+	.sl-markdown-content > h4 ~ h2 ~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(:where(.not-content *)) {
+		margin-left: var(--sl-content-indent);
+	}
+
+	/* h4 다음에 h3가 오면: h3 섹션의 콘텐츠는 2단계 */
+	.sl-markdown-content > h4 ~ h3 ~ :is(p, ul, ol, dl, blockquote, pre, table, .expressive-code, details, .starlight-aside):not(:where(.not-content *)) {
+		margin-left: calc(var(--sl-content-indent) * 2);
+	}
+}

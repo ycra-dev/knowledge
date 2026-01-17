@@ -35,7 +35,10 @@ export default defineConfig({
 			},
 			// KaTeX CSS (수식 렌더링) - node_modules에서 직접 로드
 			// 커스텀 스타일 (H2 하위 들여쓰기 등)
-			customCss: ['./node_modules/katex/dist/katex.min.css'],
+			customCss: [
+				'./node_modules/katex/dist/katex.min.css',
+				'./src/styles/custom.css',
+			],
 			// 기본 언어를 한국어로 설정 (HTML lang="ko")
 			defaultLocale: 'root',
 			locales: {
