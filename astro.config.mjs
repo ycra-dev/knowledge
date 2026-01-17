@@ -1,9 +1,9 @@
 // @ts-check
-import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
+import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
-import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 // 사이트 메타데이터
 const SITE_URL = 'https://ycra-dev.github.io';
@@ -34,6 +34,7 @@ export default defineConfig({
 				themes: ['github-light', 'github-dark'],
 			},
 			// KaTeX CSS (수식 렌더링) - node_modules에서 직접 로드
+			// 커스텀 스타일 (H2 하위 들여쓰기 등)
 			customCss: ['./node_modules/katex/dist/katex.min.css'],
 			// 기본 언어를 한국어로 설정 (HTML lang="ko")
 			defaultLocale: 'root',
@@ -78,7 +79,7 @@ export default defineConfig({
 				// 수학
 				{
 					label: '수학',
-					collapsed: false,
+					collapsed: true,
 					items: [
 						{ label: '선형대수', autogenerate: { directory: 'math/linear-algebra' } },
 						{ label: '미적분학', autogenerate: { directory: 'math/calculus' } },
@@ -107,12 +108,6 @@ export default defineConfig({
 						{ label: '머신러닝', autogenerate: { directory: 'cs/machine-learning' } },
 						{ label: '시스템', autogenerate: { directory: 'cs/systems' } },
 					],
-				},
-				// 기여 가이드
-				{
-					label: '기여하기',
-					collapsed: true,
-					autogenerate: { directory: 'contributing' },
 				},
 				// 테스트 페이지
 				{
